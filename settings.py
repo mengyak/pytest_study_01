@@ -1,6 +1,9 @@
 class ENV:
     #testing envrionment
     url = "http://localhost:8000"
+    # 自动化专用用户
+    username = 'test123456'
+    password = 'test123456'
 
 class DBSql:
     """
