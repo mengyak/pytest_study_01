@@ -1,4 +1,6 @@
 from time import sleep
+
+import allure
 import pytest
 from ec.types.regex import username
 from selenium.webdriver.common.by import By
@@ -43,20 +45,16 @@ class TestLogin:
             text = driver.find_element(By.XPATH, "//div[@class='pwd_error']").text
             assert text == "密码错误"
 
+    @allure.feature('登录注册')
+    @allure.story('注册')
     def test_shopping_mall_004(self,open_page):
         username = 'test_mall_004'
         pwd = 'test_mall_004'
         cpwd = 'test_mall_004'
         email = ('test_mall_004@qq.com')
+
         driver = open_page
-        sel_click(driver, (By.XPATH, "//a[contains(text(), '注册')]"))
-
-        sel_send_keys(driver, (By.XPATH, "//input[@id='user_name']"), username)
-        sel_send_keys(driver, (By.XPATH, "//input[@id='pwd']"), pwd)
-        sel_send_keys(driver, (By.XPATH, "//input[@id='cpwd']"), cpwd)
-        sel_send_keys(driver, (By.XPATH, "//input[@id='email']"), email)
-
-        sel_click(driver, (By.XPATH, "//input[@id='注 册']"))
+        Event().event_register(driver, username, pwd,cpwd,email)
 
         # 断言1： 查询用户表：是否存在该用户
         sql = [f'select * from df_user_userinfo where uname="{username}"']
